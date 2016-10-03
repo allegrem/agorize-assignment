@@ -3,7 +3,7 @@ class WordPairing
     words = []
     File.open('wordlist.txt', 'r') do |f|
       f.each_line do |line|
-        words << line.strip if line =~ /\b[a-zA-Z]{1,6}\b/ # only keep words with 6 letters or less
+        words << line.strip.downcase if line =~ /\b[a-zA-Z]{1,6}\b/ # only keep words with 6 letters or less
       end
     end
     words
