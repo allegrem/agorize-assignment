@@ -2,7 +2,7 @@ require_relative 'node'
 
 module WordPairing
   def self.fast(words, target_words)
-    results = {}
+    results = []
 
     # Build the search tree
     tree = Node.new
@@ -16,7 +16,7 @@ module WordPairing
         next unless word_exist # we only consider the "true" values
         # We check if the remaining letters also form an existing word. If so,
         # we save the result.
-        results[word] = [word[0..i], word[i+1..-1]] if tree.exist?(word[i+1..-1])
+        results << [word, word[0..i], word[i+1..-1]] if tree.exist?(word[i+1..-1])
       end
     end
 
@@ -24,13 +24,13 @@ module WordPairing
   end
 
   def self.slow(words, target_words)
-    results = {}
+    results = []
 
     target_words.each do |target_word|
       words.each do |start_word|
         words.each do |end_word|
           if target_word == start_word + end_word
-            results[target_word] = [start_word, end_word]
+            results << [target_word, start_word, end_word]
           end
         end
       end

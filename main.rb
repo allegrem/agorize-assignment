@@ -10,8 +10,8 @@ benchmark = Benchmark.measure do
   results = WordPairing.fast words, six_letters
 end
 
-results.each do |k, v|
-  puts "#{k} = #{v.first} + #{v.last}"
+results.each do |result|
+  puts "#{result[0]} = #{result[1]} + #{result[2]}"
 end
 
 puts
