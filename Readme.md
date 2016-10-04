@@ -17,16 +17,43 @@ results = WordPairing.slow words, six_letters
 # results = WordPairing.fast words, six_letters
 ```
 
+# Instructions
+
+The challenge here is to process the dictionary (in attachement) and looking for all six letter words which are composed of two concatenated smaller words.
+
+For example:
+```
+al + bums => albums
+we + aver => weaver
+tail + or => tailor
+...
+```
+
+There are 3 different parts to this exercise: writing three different programs to solve the same problem, but each time with a different objective in mind: Readability, Speed and finally Extensibility. Addressing only the first two programs will be sufficient this time (Readability and Speed).
+
+If you want to include a brief explanation of the differences, the explanation can actually be more interesting than the Ruby code itself.  Attached is a file that goes with the exercise: a dictionary or word list.
+
+Additional instructions:
+- Some unit tests (RSpec/Cucumber/Test-unit….) will be a plus but are not mandatory. Testing is part of our daily routine...
+- Object oriented design and small functions with a meaningful name have a lot of value for us.
+- We don't hesitate to challenge each other code.
+
+
 # Comments on the code
+
+## Tests
 
 I wrote tests for the most critical part of the code, which is the Node class. They do not fully cover all the class, but it was more than enough to give me confidence on the important methods (insertion and search). It also allowed me to TDD these methods.
 
 There are also some tests on the Words module, but there are anecdotal. They obviously depend on the *wordlist.txt* file, which does not make them reliable unit tests.
 
+
+## Execution time
+
 The *Execution time* displayed at the end of the program shows respectively in seconds the user CPU time, the system CPU time, the sum of the user and the system CPU times and the elapsed real time. On my computer, I achieved the following speed (with the *fast* implementation): `0.080000   0.000000   0.080000 (  0.077739)`. The benchmark does not take into account the time spent reading the file and storing the words in an array in memory, nor the time displaying the results.
 
 
-# Data Structure
+## Data Structure
 
 In the *fast* implementation, I used a tree data structure to store the words and retrieve them efficiently. Each node has children identified by a letter (its label), and a boolean (`end_of_word`) indicating if the node is at the end of a path forming a word.
 
@@ -35,7 +62,7 @@ To insert a new word in the tree, we start at the root, take the first letter of
 With this structure, we can efficiently find if a word exists (aka if there is an existing path of nodes leading to a final node flagged as `end_of_word`). For a given word, we can also easily find all the existing words formed by its *n* first characters (aka the nodes flagged as `end_of_word` on the path formed by the given word).
 
 
-# Complexity Analysis
+## Complexity Analysis
 
 Let *n* be the number of words in the dictionary (in this exercise, with 6 letters or less). We also consider that `n ~ m`, where *m* is the number of words we want to split (in this exercise, the words with exactly 6 letters).
 
